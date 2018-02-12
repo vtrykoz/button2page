@@ -1,0 +1,68 @@
+<!doctype html><html><head><style>.hidden{display:none!important;}.button{position:relative;display:inline-block;color:black;vertical-align:top;border-radius:8px;padding:16px 32px;margin:4px;cursor:pointer;transition:all .3s cubic-bezier(0.42, 0, 0.32, 1), margin 0s;}.button-red{background:#F5422F;}.button-yellow{background:#FFCA0D;}.button-blue{background:#00ACE3;}.view{position:absolute;left:0 !important;top:0 !important;width:100vw !important;height:100vh !important;border-radius:0;padding:64px !important;z-index:9999;}</style><meta charset="utf-8" content="text/html; charset=utf-8"><link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700,800,900,900i&amp;subset=cyrillic" rel="stylesheet"></head><body style="background:black;color:white;margin:0;padding:64px;overflow:hidden;font-family:'Montserrat';font-size:16px;text-align:center;user-select:none;"><div id="stage" style="position:absolute;left:0;right:0;top:0;bottom:0;overflow:hidden;"><div id="app" style="padding:64px;box-sizing:border-box;padding-top:calc(50vh - 44px);"><div id="b1" class="button button-red">First Page</div><div id="b2" class="button button-blue">Second Page</div><div id="b3" class="button button-yellow">Third Page</div></div></div><script src="watch.js"></script><script src="f16.js"></script><script>(function() {
+  this.clearViewPositions = function() {
+    this.style.position = '';
+    this.style.width = '';
+    this.style.height = '';
+    this.style.left = '';
+    this.style.top = '';
+    this.style.margin = '';
+    this.style.zIndex = '';
+    this.parentNode.removeChild(this.tempObj);
+    return this.removeEventListener('transitionend', clearViewPositions);
+  };
+
+  this.back = function(el) {
+    el.classList.toggle('view', false);
+    el.onclick = function() {
+      return toFixed(el);
+    };
+    return el.addEventListener('transitionend', clearViewPositions);
+  };
+
+  this.toFixed = function(el) {
+    var bounds, cs, tempObj, ttt;
+    bounds = el.getBoundingClientRect();
+    cs = getComputedStyle(el);
+    tempObj = document.createElement('div');
+    tempObj.style.width = bounds.width + 'px';
+    tempObj.style.height = bounds.height + 'px';
+    tempObj.style.marginTop = cs.marginTop;
+    tempObj.style.marginBottom = cs.marginBottom;
+    tempObj.style.marginLeft = cs.marginLeft;
+    tempObj.style.marginRight = cs.marginRight;
+    tempObj.style.display = cs.display;
+    tempObj.style.position = cs.position;
+    tempObj.style.verticalAlign = cs.verticalAlign;
+    el.tempObj = tempObj;
+    el.style.position = 'absolute';
+    el.style.width = bounds.width + 'px';
+    el.style.height = bounds.height + 'px';
+    el.style.boxSizing = 'border-box';
+    el.style.zIndex = 99999;
+    el.style.left = bounds.left + 'px';
+    el.style.top = bounds.top + 'px';
+    el.style.margin = 0;
+    el.parentNode.insertBefore(tempObj, el);
+    ttt = function() {
+      el.classList.toggle('view', true);
+      return el.onclick = function() {
+        return back(el);
+      };
+    };
+    return setTimeout(ttt, 20);
+  };
+
+  b1.onclick = function() {
+    return toFixed(this);
+  };
+
+  b2.onclick = function() {
+    return toFixed(this);
+  };
+
+  b3.onclick = function() {
+    return toFixed(this);
+  };
+
+}).call(this);
+</script></body></html>
